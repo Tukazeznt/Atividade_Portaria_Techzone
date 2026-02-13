@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Portaria Inteligente - TechZone</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ffffff, #000000);
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 40px;
+            width: 360px;
+            border-radius: 18px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        h2 {
+            margin-bottom: 25px;
+            color: #000000;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        label {
+            font-size: 14px;
+            color: #444;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #000000;
+            outline: none;
+            box-shadow: 0 0 8px rgba(36, 59, 85, 0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #000000;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #565657;
+            transform: translateY(-2px);
+        }
+
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Portaria TechZone</h2>
+
+        <div class="input-group">
+            <label>Nome do Colaborador</label>
+            <input type="text" id="nome" placeholder="Digite seu nome">
+        </div>
+
+        <div class="input-group">
+            <label>Hora Atual (0-23)</label>
+            <input type="number" id="hora" placeholder="Digite a hora" min="0" max="23">
+        </div>
+
+        <button onclick="verificarAcesso()">Verificar Acesso</button>
+
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        function verificarAcesso() {
+
+            let autorizados = ["Gbrt", "Vila", "Tukaze", "Breno", "Ludmila", "Brecci"];
+
+            let nomeUsuario = document.getElementById("nome").value;
+            let horaAtual = Number(document.getElementById("hora").value);
+            let resultado = document.getElementById("resultado");
+
+            if (autorizados.includes(nomeUsuario)) {
+
+                if (horaAtual >= 6 && horaAtual < 22) {
+                    resultado.innerHTML = "✅ Acesso Permitido. Bem-vindo, " + nomeUsuario + "!";
+                    resultado.style.color = "green";
+
+                } else if (horaAtual >= 22 && horaAtual <= 23) {
+                    resultado.innerHTML = "⛔ Acesso Negado: Fora do horário permitido.";
+                    resultado.style.color = "red";
+
+                } else {
+                    resultado.innerHTML = "⚠ Horário inválido. Digite entre 0 e 23.";
+                    resultado.style.color = "orange";
+                }
+
+            } else {
+                resultado.innerHTML = "❌ Acesso Negado: Usuário não cadastrado.";
+                resultado.style.color = "red";
+            }
+        }
+    </script>
+
+</body>
+</html>
